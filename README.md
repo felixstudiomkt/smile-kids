@@ -1,6 +1,6 @@
-# Smile Kids Odontologia — versão para Vercel
+# Smile Kids Odontologia
 
-Esta pasta contém uma cópia independente do site preparada para Next.js e Vercel. O site atualmente publicado no ChatGPT Sites não é alterado por esta versão.
+Site em Next.js com exportação estática para **Cloudflare Pages** e conteúdo editável via `content/felix-site.json` (integrado ao portal FELIX Base).
 
 ## Executar localmente
 
@@ -11,29 +11,17 @@ npm run dev
 
 Abra `http://localhost:3000`.
 
-## Validar a produção
+## Validar a produção (exportação estática)
 
 ```bash
 npm run build
-npm start
 ```
 
-## Publicar pela Vercel
+Os arquivos estáticos são gerados em `out/`.
 
-### Opção 1 — GitHub
+## Publicar no Cloudflare Pages
 
-1. Crie um repositório no GitHub e envie todo o conteúdo desta pasta.
-2. Na Vercel, clique em **New Project**.
-3. Importe o repositório.
-4. Confirme o preset **Next.js**.
-5. Clique em **Deploy**.
+- **Integração Git (recomendado):** conectar o repositório `felixstudiomkt/smile-kids`, branch de produção `main`, comando de build `npm run build` e diretório de saída `out` (Node 22 definido em `.node-version`).
+- **Deploy manual (CLI):** `npx wrangler pages deploy out --project-name smile-kids`.
 
-### Opção 2 — Vercel CLI
-
-Dentro desta pasta, execute:
-
-```bash
-npx vercel --prod
-```
-
-O projeto não exige variáveis de ambiente. Depois da publicação, o domínio pode ser configurado em **Project Settings → Domains** na Vercel.
+O projeto não exige variáveis de ambiente obrigatórias; opcionalmente `NEXT_PUBLIC_SITE_URL` pode definir o domínio canônico das meta tags (por padrão usa `CF_PAGES_URL` em builds do Cloudflare Pages).
