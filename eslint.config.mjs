@@ -30,6 +30,10 @@ const eslintConfig = defineConfig([
         ...globals.serviceworker,
       },
     },
+    rules: {
+      // Static export (output: "export") uses pre-generated WebP <picture> sources
+      "@next/next/no-img-element": "off",
+    },
     settings: {
       react: {
         version: "detect",
