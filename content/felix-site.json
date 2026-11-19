@@ -1,0 +1,27 @@
+{
+  "whatsapp": {
+    "rotulo": "WhatsApp de agendamento",
+    "tipo": "whatsapp",
+    "valor": "https://wa.link/rux2da"
+  },
+  "apresentacao": {
+    "rotulo": "Texto de apresentação",
+    "tipo": "texto",
+    "valor": "Cárie Zero é possível — e a gente ensina sua família a chegar lá. Acolhimento, diversão e acompanhamento desde os primeiros dentinhos."
+  },
+  "foto": {
+    "rotulo": "Foto principal",
+    "tipo": "foto",
+    "valor": "/smile-kids-hero-family-v2.png"
+  },
+  "descricaoFoto": {
+    "rotulo": "Descrição da foto principal",
+    "tipo": "texto",
+    "valor": "Duas crianças sorrindo em uma clínica odontopediátrica"
+  },
+  "horario": {
+    "rotulo": "Horário de atendimento",
+    "tipo": "horario",
+    "valor": ""
+  }
+}

@@ -1,4 +1,6 @@
-const whatsappUrl = "https://wa.link/rux2da";
+import conteudo from "../content/felix-site.json";
+
+const whatsappUrl = conteudo.whatsapp.valor;
 const instagramUrl = "https://www.instagram.com/smilekidsodontologia/";
 const mapsUrl = "https://www.google.com/maps/search/?api=1&query=R.%20Pres.%20Kennedy%2C%20622%2C%20Cascavel%2C%20PR";
 
@@ -57,7 +59,7 @@ export default function Home() {
         <div className="hero-copy">
           <p className="eyebrow"><span>✦</span> Odontopediatria em Cascavel/PR</p>
           <h1>O sorriso do seu filho merece uma <em>aventura sem medo.</em></h1>
-          <p className="hero-lead">Cárie Zero é possível — e a gente ensina sua família a chegar lá. Acolhimento, diversão e acompanhamento desde os primeiros dentinhos.</p>
+          <p className="hero-lead">{conteudo.apresentacao.valor}</p>
           <div className="hero-actions">
             <a className="button button-coral" href={whatsappUrl} target="_blank" rel="noreferrer">Agendar primeira visita <span>↗</span></a>
             <a className="text-link" href="#primeira-visita">Descobrir como funciona <span>↓</span></a>
@@ -71,7 +73,7 @@ export default function Home() {
         <div className="hero-art">
           <div className="sunburst" />
           <div className="photo-frame">
-            <img src="/smile-kids-hero-family-v2.png" alt="Duas crianças sorrindo em uma clínica odontopediátrica" />
+            <img src={conteudo.foto.valor} alt={conteudo.descricaoFoto.valor} />
           </div>
           <div className="speech speech-top">Sem medo,<br /><strong>só cuidado.</strong></div>
           <div className="speech speech-bottom"><span>★</span> Cárie Zero<br />é possível!</div>
@@ -216,6 +218,7 @@ export default function Home() {
           <a className="button button-coral" href={whatsappUrl} target="_blank" rel="noreferrer">Chamar no WhatsApp <span>↗</span></a>
         </div>
         <div className="contact-details">
+          {conteudo.horario.valor && <div className="contact-card"><div><small>Horário de atendimento</small><strong>{conteudo.horario.valor}</strong></div></div>}
           <a className="contact-card" href={mapsUrl} target="_blank" rel="noreferrer"><span aria-hidden="true">⌖</span><div><small>Onde estamos</small><strong>R. Presidente Kennedy, 622</strong><p>Centro · Cascavel/PR · 85810-040</p></div><b>↗</b></a>
           <a className="contact-card" href={instagramUrl} target="_blank" rel="noreferrer"><span aria-hidden="true">◎</span><div><small>Acompanhe</small><strong>@smilekidsodontologia</strong><p>Dicas e rotina da clínica no Instagram</p></div><b>↗</b></a>
         </div>
