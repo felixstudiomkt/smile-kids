@@ -413,28 +413,29 @@ blockquote {
 
 .hero {
   width: min(1180px, calc(100% - 48px));
-  min-height: calc(100svh - 114px);
+  min-height: clamp(500px, calc(100svh - 114px), 740px);
   margin: 0 auto;
-  padding: 44px 0 84px;
+  padding: clamp(24px, 3.6vh, 44px) 0 clamp(44px, 6vh, 76px);
   display: grid;
   grid-template-columns: 1.06fr 0.94fr;
   align-items: center;
-  gap: 52px;
+  gap: clamp(28px, 4vw, 52px);
   scroll-margin-top: 120px;
 }
 
 .hero-copy {
   position: relative;
   z-index: 2;
+  min-width: 0;
   animation: hero-enter 0.65s var(--ease-out-expo) both;
 }
 
 h1 {
   max-width: 14ch;
   margin: 0;
-  font-size: clamp(2.85rem, 5.1vw, 4.6rem);
+  font-size: clamp(2.25rem, 4.7vw, 4.5rem);
   font-weight: 700;
-  line-height: 1.02;
+  line-height: 1.03;
   letter-spacing: -0.025em;
   color: var(--navy);
 }
@@ -557,7 +558,7 @@ h1 em {
 }
 
 .hero-art {
-  min-height: 540px;
+  min-height: clamp(320px, 40vw, 520px);
   position: relative;
   display: grid;
   place-items: center;
@@ -566,17 +567,17 @@ h1 em {
 
 .sunburst {
   position: absolute;
-  width: 470px;
-  height: 470px;
+  width: clamp(250px, 36vw, 460px);
+  height: clamp(250px, 36vw, 460px);
   border-radius: 50%;
   background: var(--yellow);
   box-shadow:
-    0 0 0 18px rgba(247, 198, 75, 0.2),
-    0 0 0 38px rgba(247, 198, 75, 0.09);
+    0 0 0 14px rgba(247, 198, 75, 0.2),
+    0 0 0 30px rgba(247, 198, 75, 0.09);
 }
 
 .photo-frame {
-  width: 390px;
+  width: clamp(212px, 30vw, 386px);
   aspect-ratio: 4 / 5;
   position: relative;
   z-index: 1;
@@ -1734,6 +1735,259 @@ a.contact-card:hover .contact-arrow {
   box-shadow: var(--shadow-tactile-pressed);
 }
 
+/* Floating Superheroine Mascot (Super Dra. Anne) */
+
+.heroine-layer {
+  position: fixed;
+  top: 136px;
+  right: 18px;
+  z-index: 34;
+  pointer-events: none;
+}
+
+.heroine-flight {
+  position: relative;
+  display: flex;
+  align-items: center;
+  transform: translate3d(var(--flight-x, 0px), var(--flight-y, 0px), 0)
+    rotate(var(--flight-tilt, 0deg));
+}
+
+.heroine-bob {
+  position: relative;
+  pointer-events: auto;
+  animation: heroine-float 4.4s ease-in-out infinite;
+}
+
+.heroine-trigger {
+  position: relative;
+  display: block;
+  width: 124px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  filter: drop-shadow(0 12px 14px rgba(24, 57, 75, 0.22));
+  transition:
+    transform 0.28s var(--ease-out-expo),
+    filter 0.28s ease;
+}
+
+.heroine-trigger:hover {
+  transform: scale(1.07) rotate(-2deg);
+  filter: drop-shadow(0 16px 20px rgba(24, 57, 75, 0.28));
+}
+
+.heroine-trigger:active {
+  transform: scale(0.98);
+}
+
+.heroine-trigger img {
+  width: 100%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+.heroine-sparkle {
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 0 var(--navy));
+}
+
+.heroine-sparkle.spark-a {
+  top: -2px;
+  left: 2px;
+  color: var(--yellow);
+  animation: heroine-twinkle 2.6s ease-in-out infinite;
+}
+
+.heroine-sparkle.spark-b {
+  top: 18px;
+  left: -6px;
+  color: var(--coral);
+  animation: heroine-twinkle 3.1s 0.9s ease-in-out infinite;
+}
+
+.heroine-dismiss {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--navy);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--navy);
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.85);
+  box-shadow: 2px 2px 0 rgba(24, 57, 75, 0.18);
+  transition:
+    opacity 0.18s ease,
+    transform 0.2s var(--ease-out-expo),
+    background-color 0.18s ease;
+}
+
+.heroine-dismiss::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+}
+
+.heroine-bob:hover .heroine-dismiss,
+.heroine-bob:focus-within .heroine-dismiss,
+.heroine-layer.is-open .heroine-dismiss {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.heroine-dismiss:hover {
+  background: var(--yellow-soft);
+}
+
+.heroine-bubble {
+  position: absolute;
+  right: calc(100% + 14px);
+  top: 6px;
+  width: 248px;
+  padding: 14px 16px;
+  border: 3px solid var(--navy);
+  border-radius: 20px;
+  background: var(--white);
+  color: var(--navy);
+  box-shadow: 6px 7px 0 rgba(24, 57, 75, 0.16);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px) scale(0.95);
+  transition:
+    opacity 0.22s ease,
+    transform 0.28s var(--ease-out-expo),
+    visibility 0.22s ease;
+}
+
+.heroine-bubble::after {
+  content: "";
+  position: absolute;
+  top: 28px;
+  right: -9px;
+  width: 14px;
+  height: 14px;
+  background: var(--white);
+  border-top: 3px solid var(--navy);
+  border-right: 3px solid var(--navy);
+  transform: rotate(45deg);
+}
+
+.heroine-layer.is-open .heroine-bubble {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(0) scale(1);
+}
+
+.heroine-bubble-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.heroine-bubble-title {
+  color: var(--teal-dark);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.heroine-bubble-close {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--navy);
+  cursor: pointer;
+  transition: background-color 0.16s ease;
+}
+
+.heroine-bubble-close::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+}
+
+.heroine-bubble-close:hover {
+  background: var(--yellow-soft);
+}
+
+.heroine-bubble p {
+  margin: 0 0 12px;
+  font-size: 13.5px;
+  line-height: 1.48;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.heroine-bubble-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 2px solid var(--navy);
+  border-radius: 999px;
+  background: var(--coral-btn);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 2px 3px 0 var(--navy);
+  transition:
+    transform 0.16s var(--ease-out-expo),
+    box-shadow 0.16s ease,
+    background-color 0.16s ease;
+}
+
+.heroine-bubble-cta:hover {
+  background: var(--coral-btn-hover);
+  transform: translate(1px, 1px);
+  box-shadow: 1px 2px 0 var(--navy);
+}
+
+@keyframes heroine-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+}
+
+@keyframes heroine-twinkle {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15) rotate(16deg);
+  }
+}
+
 /* Reduced Motion — Disable movement, keep helpful feedback */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1744,8 +1998,14 @@ a.contact-card:hover .contact-arrow {
   .marquee-track,
   .ticker-track,
   .hero-copy,
-  .hero-art {
+  .hero-art,
+  .heroine-bob,
+  .heroine-sparkle {
     animation: none;
+  }
+
+  .heroine-flight {
+    transform: none;
   }
 
   .ticker-track {
@@ -1781,6 +2041,48 @@ a.contact-card:hover .contact-arrow {
   }
 }
 
+/* Medium Desktop / Split-pane: Keep Hero side-by-side, dock Super Dra. Anne cleanly at bottom-left */
+
+@media (max-width: 1320px) {
+  .heroine-layer {
+    top: auto;
+    right: auto;
+    left: 16px;
+    bottom: 18px;
+  }
+
+  .heroine-flight {
+    transform: none;
+  }
+
+  .heroine-trigger {
+    width: 92px;
+  }
+
+  .heroine-bubble {
+    right: auto;
+    left: 0;
+    top: auto;
+    bottom: calc(100% + 14px);
+    width: min(260px, calc(100vw - 32px));
+    transform: translateY(8px) scale(0.95);
+  }
+
+  .heroine-layer.is-open .heroine-bubble {
+    transform: translateY(0) scale(1);
+  }
+
+  .heroine-bubble::after {
+    top: auto;
+    right: auto;
+    left: 28px;
+    bottom: -9px;
+    border-top: 0;
+    border-right: 3px solid var(--navy);
+    border-bottom: 3px solid var(--navy);
+  }
+}
+
 /* Tablet Breakpoint */
 
 @media (max-width: 1040px) {
@@ -1798,17 +2100,54 @@ a.contact-card:hover .contact-arrow {
 
   .hero {
     min-height: auto;
-    grid-template-columns: 1fr;
-    gap: 44px;
-    padding: 36px 0 72px;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 28px;
+    padding: 28px 0 56px;
   }
 
-  .hero-copy {
-    max-width: 680px;
+  .hero-lead {
+    margin-top: 20px;
+    font-size: 16px;
   }
 
-  .hero-art {
-    min-height: 490px;
+  .hero-actions {
+    gap: 14px 20px;
+    margin-top: 24px;
+  }
+
+  .trust-row {
+    margin-top: 24px;
+    padding-top: 18px;
+  }
+
+  .speech {
+    padding: 10px 14px;
+    font-size: 12.5px;
+    border-radius: 16px;
+  }
+
+  .speech-top {
+    top: 16px;
+    left: 0;
+  }
+
+  .speech-bottom {
+    right: 0;
+    bottom: 24px;
+  }
+
+  .spark-one {
+    top: 24px;
+    right: 8px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .spark-two {
+    bottom: 12px;
+    left: 8px;
+    width: 20px;
+    height: 20px;
   }
 
   .visit-trail {
@@ -1887,13 +2226,22 @@ a.contact-card:hover .contact-arrow {
   .footer-brand {
     grid-column: 1 / -1;
   }
+
+  .heroine-layer {
+    left: 14px;
+    bottom: 16px;
+  }
+
+  .heroine-trigger {
+    width: 84px;
+  }
 }
 
 /* Mobile Breakpoint */
 
-@media (max-width: 720px) {
+@media (max-width: 680px) {
   .section {
-    padding: 76px 20px;
+    padding: 72px 20px;
   }
 
   .nav-shell {
@@ -1920,8 +2268,13 @@ a.contact-card:hover .contact-arrow {
 
   .hero {
     width: calc(100% - 32px);
-    padding: 28px 0 64px;
-    gap: 36px;
+    grid-template-columns: 1fr;
+    padding: 24px 0 60px;
+    gap: 32px;
+  }
+
+  .hero-copy {
+    max-width: none;
   }
 
   h1 {
@@ -2146,5 +2499,14 @@ a.contact-card:hover .contact-arrow {
 
   .whatsapp-float span {
     display: none;
+  }
+
+  .heroine-layer {
+    left: 10px;
+    bottom: 14px;
+  }
+
+  .heroine-trigger {
+    width: 74px;
   }
 }

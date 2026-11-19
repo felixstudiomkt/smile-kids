@@ -33,6 +33,7 @@ import {
   WhatsAppIcon,
   HeroUnderlineSvg,
 } from "../components/Icons";
+import { FloatingHeroine } from "../components/FloatingHeroine";
 import { SiteHeader } from "../components/SiteHeader";
 
 const DEFAULT_HERO_PHOTO = "/smile-kids-hero-family-v2.png";
@@ -733,6 +734,8 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      <FloatingHeroine whatsappUrl={whatsappUrl} />
 
       <a
         className="whatsapp-float"
