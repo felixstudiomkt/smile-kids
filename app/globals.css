@@ -413,28 +413,29 @@ blockquote {
 
 .hero {
   width: min(1180px, calc(100% - 48px));
-  min-height: calc(100svh - 114px);
+  min-height: clamp(500px, calc(100svh - 114px), 740px);
   margin: 0 auto;
-  padding: 44px 0 84px;
+  padding: clamp(24px, 3.6vh, 44px) 0 clamp(44px, 6vh, 76px);
   display: grid;
   grid-template-columns: 1.06fr 0.94fr;
   align-items: center;
-  gap: 52px;
+  gap: clamp(28px, 4vw, 52px);
   scroll-margin-top: 120px;
 }
 
 .hero-copy {
   position: relative;
   z-index: 2;
+  min-width: 0;
   animation: hero-enter 0.65s var(--ease-out-expo) both;
 }
 
 h1 {
   max-width: 14ch;
   margin: 0;
-  font-size: clamp(2.85rem, 5.1vw, 4.6rem);
+  font-size: clamp(2.25rem, 4.7vw, 4.5rem);
   font-weight: 700;
-  line-height: 1.02;
+  line-height: 1.03;
   letter-spacing: -0.025em;
   color: var(--navy);
 }
@@ -557,7 +558,7 @@ h1 em {
 }
 
 .hero-art {
-  min-height: 540px;
+  min-height: clamp(320px, 40vw, 520px);
   position: relative;
   display: grid;
   place-items: center;
@@ -566,17 +567,17 @@ h1 em {
 
 .sunburst {
   position: absolute;
-  width: 470px;
-  height: 470px;
+  width: clamp(250px, 36vw, 460px);
+  height: clamp(250px, 36vw, 460px);
   border-radius: 50%;
   background: var(--yellow);
   box-shadow:
-    0 0 0 18px rgba(247, 198, 75, 0.2),
-    0 0 0 38px rgba(247, 198, 75, 0.09);
+    0 0 0 14px rgba(247, 198, 75, 0.2),
+    0 0 0 30px rgba(247, 198, 75, 0.09);
 }
 
 .photo-frame {
-  width: 390px;
+  width: clamp(212px, 30vw, 386px);
   aspect-ratio: 4 / 5;
   position: relative;
   z-index: 1;
@@ -2040,6 +2041,48 @@ a.contact-card:hover .contact-arrow {
   }
 }
 
+/* Medium Desktop / Split-pane: Keep Hero side-by-side, dock Super Dra. Anne cleanly at bottom-left */
+
+@media (max-width: 1320px) {
+  .heroine-layer {
+    top: auto;
+    right: auto;
+    left: 16px;
+    bottom: 18px;
+  }
+
+  .heroine-flight {
+    transform: none;
+  }
+
+  .heroine-trigger {
+    width: 92px;
+  }
+
+  .heroine-bubble {
+    right: auto;
+    left: 0;
+    top: auto;
+    bottom: calc(100% + 14px);
+    width: min(260px, calc(100vw - 32px));
+    transform: translateY(8px) scale(0.95);
+  }
+
+  .heroine-layer.is-open .heroine-bubble {
+    transform: translateY(0) scale(1);
+  }
+
+  .heroine-bubble::after {
+    top: auto;
+    right: auto;
+    left: 28px;
+    bottom: -9px;
+    border-top: 0;
+    border-right: 3px solid var(--navy);
+    border-bottom: 3px solid var(--navy);
+  }
+}
+
 /* Tablet Breakpoint */
 
 @media (max-width: 1040px) {
@@ -2057,17 +2100,54 @@ a.contact-card:hover .contact-arrow {
 
   .hero {
     min-height: auto;
-    grid-template-columns: 1fr;
-    gap: 44px;
-    padding: 36px 0 72px;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 28px;
+    padding: 28px 0 56px;
   }
 
-  .hero-copy {
-    max-width: 680px;
+  .hero-lead {
+    margin-top: 20px;
+    font-size: 16px;
   }
 
-  .hero-art {
-    min-height: 490px;
+  .hero-actions {
+    gap: 14px 20px;
+    margin-top: 24px;
+  }
+
+  .trust-row {
+    margin-top: 24px;
+    padding-top: 18px;
+  }
+
+  .speech {
+    padding: 10px 14px;
+    font-size: 12.5px;
+    border-radius: 16px;
+  }
+
+  .speech-top {
+    top: 16px;
+    left: 0;
+  }
+
+  .speech-bottom {
+    right: 0;
+    bottom: 24px;
+  }
+
+  .spark-one {
+    top: 24px;
+    right: 8px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .spark-two {
+    bottom: 12px;
+    left: 8px;
+    width: 20px;
+    height: 20px;
   }
 
   .visit-trail {
@@ -2148,49 +2228,20 @@ a.contact-card:hover .contact-arrow {
   }
 
   .heroine-layer {
-    top: auto;
-    right: auto;
     left: 14px;
     bottom: 16px;
-  }
-
-  .heroine-flight {
-    transform: none;
   }
 
   .heroine-trigger {
     width: 84px;
   }
-
-  .heroine-bubble {
-    right: auto;
-    left: 0;
-    top: auto;
-    bottom: calc(100% + 14px);
-    width: min(260px, calc(100vw - 32px));
-    transform: translateY(8px) scale(0.95);
-  }
-
-  .heroine-layer.is-open .heroine-bubble {
-    transform: translateY(0) scale(1);
-  }
-
-  .heroine-bubble::after {
-    top: auto;
-    right: auto;
-    left: 28px;
-    bottom: -9px;
-    border-top: 0;
-    border-right: 3px solid var(--navy);
-    border-bottom: 3px solid var(--navy);
-  }
 }
 
 /* Mobile Breakpoint */
 
-@media (max-width: 720px) {
+@media (max-width: 680px) {
   .section {
-    padding: 76px 20px;
+    padding: 72px 20px;
   }
 
   .nav-shell {
@@ -2217,8 +2268,13 @@ a.contact-card:hover .contact-arrow {
 
   .hero {
     width: calc(100% - 32px);
-    padding: 28px 0 64px;
-    gap: 36px;
+    grid-template-columns: 1fr;
+    padding: 24px 0 60px;
+    gap: 32px;
+  }
+
+  .hero-copy {
+    max-width: none;
   }
 
   h1 {
